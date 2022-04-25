@@ -39,7 +39,8 @@ function Login({ id, password, idSetter, passwordSetter, tokenSetter, setErrorLo
     // función Inicia Sesión
     function iniciarSesion() {
         if (id === "" || password === "") {
-            window.alert("¡El campo no puede quedar vacío!");
+            setErrorLog("¡El campo no puede quedar vacío!");
+            setAlertText(true)
             return;
         }
 
