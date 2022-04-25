@@ -64,7 +64,7 @@ function SignUp({ idSetter, passwordSetter, signedSetter, setErrorLog, setAlertT
     return (
         <div>
             <div id="registro">
-                <h1 className='text'>Regístrate</h1>
+                <h1 className='text padding-top'>Regístrate</h1>
                 {/*<h1>Logeate para entrar</h1>*/} {/* Inicia Sesión */}
                 <div className='flex flex-wrap align-items justify-contentCenter'>
                     <input className='em inputSpace margin-left' type="text" onChange={userNameHandleChange} value={userName} placeholder='Nombre de usuario' />

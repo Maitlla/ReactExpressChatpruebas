@@ -11,7 +11,7 @@ function App() {
   const [id, setId] = useState(0);
   const [password, setPassword ] = useState("");
   const [token, setToken] = useState(0);
-  const [ signed, setSigned ] = useState(false);
+  const [signed, setSigned ] = useState(false);
   const [errorLog, setErrorLog] = useState("");
   const [alertText, setAlertText] = useState(false);
 
@@ -21,11 +21,13 @@ function App() {
   return (
     <>
       <div className='bg-fondo margin-topNo'>
-        <div className='rowGrid'>
+        <div className='rowGrid'> 
+          {/* Alert personalizados */}
         {alertText && <Alerts 
-          setErrorLog={setErrorLog}
+          setErrorLog={setErrorLog} 
           setAlertText={setAlertText} 
-          errorLog={errorLog}/> }
+          errorLog={errorLog}/> } 
+           {/* Si el Registro es true, se ha registrado correctamente, sale Inicia Sesión y Cierra Sesión */}
         { signed === true && <Login 
           setAlertText={setAlertText}
           setErrorLog={setErrorLog} 
@@ -34,14 +36,15 @@ function App() {
           idSetter={setId} 
           passwordSetter={setPassword} 
           tokenSetter={setToken} 
-          /> }  {/*Renderizado condicional con las llaves - Login (Iniciar Sesión) subcomponente del Componente App()*/}
+          signedSetter={setSigned} 
+          /> }  {/* Cuando se cierra Sesión vuelve a Registro */}
         { signed === false &&  <SignUp 
           setAlertText={setAlertText}
           setErrorLog={setErrorLog} 
           idSetter={setId} 
           passwordSetter={setPassword} 
           signedSetter={setSigned} 
-        /> } {/*SignUp (Registro) subcomponente del Componente App()*/} 
+        /> }  
         { token !== 0 && <Messages token={token} />} {/*Messages (ver lista de mensajes) subcomponente del Componente App()*/}
         { token !== 0 && <NewMessage token={token} />} {/*NewMessage (enviar mensaje) subcomponente del Componente App()*/}
         </div>

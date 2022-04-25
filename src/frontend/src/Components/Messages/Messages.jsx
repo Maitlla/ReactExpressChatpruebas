@@ -13,9 +13,9 @@ function Messages(props) {
     const data = JSON.stringify({content: messages});
 
     // función autentificación GET
-    async function authGet(url, token) { // función asincrona
+    async function authGet(urlMensajes, urlUsuarios, token) { // función asincrona
         const response = await fetch(
-            url,
+            urlMensajes,
             {
                 headers: { 
                     'Content-Type': 'application/json;charset=utf-8',
@@ -23,19 +23,26 @@ function Messages(props) {
                 }
             });
         const data = await response.json();
-        // para verlo bonito
-        const datafull = data.map(
-            (item)=><li className='margin-bottom bgMensaje colorRed' key={item.time}>Usuario: {item.source} | Mensaje: {item.content}</li>
-        )
-        setMessages(datafull)
-        //console.log(data);
+
+        fetch(urlUsuarios)
+            .then((response)=> response.json())
+            .then((datausers)=> {
+                setMessages(data.map(
+                    (item, idx)=>{
+                        const user = datausers.find( items=> items.id === item.source)
+                        return ( // Para ver el nombre de usuario y su mensaje, y no el número de id
+                        <li className='margin-bottom paddingMensajes bgMensaje colorRed' key={item.time}> {user.name} : {item.content}</li>
+                        )
+                    }))
+                
+            });
         return data;
     }
 
     // ya estamos autorizados y vemos los mensajes actualizados en pantalla
     function updateMessages() {
         if (props.token !== 0){
-            authGet(url + '/messages/', props.token);
+            authGet(url + '/messages/', url + '/users/', props.token);
         }
     }
 
@@ -47,8 +54,7 @@ function Messages(props) {
     return (
         <div className='colFlex flex-wrap align-content'>
             <h1>Mensajes del Chat</h1>
-            <h3 className='bold'>Mensajes: </h3>
-            <ul className='margin-topNo list-style'>{messages}</ul>
+            <ul className='margin-topNo padding-left list-style'>{messages}</ul>
         </div>
     );
 }

@@ -8,7 +8,7 @@ import authToken from "../tools/tools.mjs";
 const urlGetMensajes = "https://web-develop-react-express-chat.herokuapp.com/messages/";
 
 // Componente Login para logearte (Iniciar Sesión), método POST
-function Login({ id, password, idSetter, passwordSetter, tokenSetter, setErrorLog, setAlertText }) {
+function Login({ id, password, idSetter, passwordSetter, tokenSetter, setErrorLog, setAlertText, signedSetter }) {
     //let userToken = null; 
     let userToken = 0;
 
@@ -114,6 +114,7 @@ function Login({ id, password, idSetter, passwordSetter, tokenSetter, setErrorLo
         tokenSetter(0);
         setErrorLog("¡Te has desconectado!")
         setAlertText(true)
+        signedSetter(false)
     }
 
     return (
